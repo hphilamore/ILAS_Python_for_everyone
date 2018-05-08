@@ -12,6 +12,13 @@ import sys
 # 1. Initailise the pygame library
 pygame.init()
 
+# 2. Variables
+black = (0,0,0)
+white = (255, 255, 255)
+red =   (255, 0, 0)
+green = (0, 255, 0)
+blue =  (0, 0, 255)
+
 # 3. Launch a game window
 window = pygame.display.set_mode((600, 400))
 
@@ -24,9 +31,14 @@ while True:
         pygame.quit()
         sys.exit()  
         
-    elif event.type == pygame.KEYDOWN:
-        print("User pressed a key.")
-    elif event.type == pygame.KEYUP:
-        print("User let go of a key.")
-    elif event.type == pygame.MOUSEBUTTONDOWN:
-        print("User pressed a mouse button")
+#    elif event.type == pygame.MOUSEBUTTONDOWN:
+#        print("User pressed a mouse button")
+        
+    # 5. Draw
+    window.fill(blue)
+
+    # 6. Update display
+    pygame.display.update()
+    
+    # 7. Frame rate
+    clock = pygame.time.Clock().tick(60)
