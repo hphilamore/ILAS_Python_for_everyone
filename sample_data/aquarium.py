@@ -95,16 +95,6 @@ while True:
         if pos[1] > (400-vert[0]) or pos[1] < horiz[1]:
             vel[1] *= -1
             
-        # 5.2.2 Object collision
-        if (((0 < (circ_pos[0] - rect_pos[0]) > radius + width) or
-             (0 < (circ_pos[0] - rect_pos[0]) < 0)) and 
-            (rect_pos[1] < circ_pos[1] < rect_pos[1] + height)):
-                vel[0] *= -1
-                
-#        if ((0 < (rect_pos[1] - circ_pos[1]) < max(radius, height)) or
-#            (0 < (circ_pos[1] - rect_pos[1]) < radius)):
-#                vel[1] *= -1
-            
             
         # 5.3 Update shape position
         pos[0] += vel[0]  
