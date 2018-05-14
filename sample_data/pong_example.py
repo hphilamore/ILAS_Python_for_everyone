@@ -73,8 +73,8 @@ while True:
     # 5.2 Check if any keys have been pressed    
     pressed = pygame.key.get_pressed()
 
-    # 5.3 Check if paddles have been moved
-    # 5.3.1 Right rectangle 
+    # 5.5 Check if paddles have been moved
+    # 5.5.1 Right rectangle 
     if pressed[pygame.K_UP] & pressed[pygame.K_DOWN] : 
         pad2_vel[y] = 0
     elif pressed[pygame.K_UP]                        : 
@@ -84,7 +84,7 @@ while True:
     else: 
         pad2_vel[y] = 0
         
-    # 5.3.2 Left rectangle 
+    # 5.5.2 Left rectangle 
     if pressed[pygame.K_w] & pressed[pygame.K_s] : 
         pad1_vel[y] = 0
     elif pressed[pygame.K_w]                     : 
