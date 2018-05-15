@@ -95,7 +95,8 @@ while True:
     else: 
         pad2_vel[y] = 0
         
-    # 5.5.2 Left rectangle 
+    # 5.5.2 Left rectangle ##
+    
     if pressed[pygame.K_w] & pressed[pygame.K_s] : 
         pad1_vel[y] = 0
     elif pressed[pygame.K_w]                     : 

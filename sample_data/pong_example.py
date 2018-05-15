@@ -94,11 +94,14 @@ while True:
     else: 
         pad1_vel[y] = 0
         
+    collision = [(ball_pos[x] <= (radius + pad_width)), 
+             (ball_pos[x] >= win_width - (radius + pad_width))] 
+        
     # 6. Calculations     
     # 6.1 Collisions
     # 6.1.1 Collision with left paddle
-#    collision = [(ball_pos[x] <= (radius + pad_width)), 
-#                 (ball_pos[x] >= win_width - (radius + pad_width))]
+    collision = [(ball_pos[x] <= (radius + pad_width)), 
+                 (ball_pos[x] >= win_width - (radius + pad_width))]
 
     for pos, col in zip(pad_pos, collision): 
         if (col and 
