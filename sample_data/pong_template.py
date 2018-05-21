@@ -61,7 +61,15 @@ while True:
         pygame.quit()
         sys.exit()  
     
-    # 6. Calculations 
+    # 6. Calculations
+
+    # 6.1.3 Reverse direction of travel if edge is reached
+    if ball_pos[x] > (win_width-radius) or ball_pos[x] < radius:
+        ball_vel[x] *= -1
+    if ball_pos[y] > (win_height-radius) or ball_pos[y] < radius:
+        ball_vel[y] *= -1
+
+        
     # 6.3 Update ball position
     ball_pos[x] += ball_vel[x]
     ball_pos[y] += ball_vel[y]

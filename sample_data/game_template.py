@@ -5,7 +5,7 @@ Created on Tue May  8 09:02:36 2018
 
 @author: hemma
 """
-
+# 0. Import libraries
 import pygame 
 import sys
 
