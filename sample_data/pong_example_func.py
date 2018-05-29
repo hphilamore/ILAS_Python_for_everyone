@@ -18,13 +18,24 @@ pygame.init()
 x = 0
 y = 1
 
-def update_pad_pos(pos, vel):
+def update_pad_pos():
     """Updates the paddle position"""
-    
-    if ((pos[y] > 0 and pos[y] < win_height - pad_height) or
-        (pos[y] >= win_height - pad_height and vel[y] < 0) or 
-        (pos[y] <= 0 and vel[y] > 0)):
-            pos[y] += vel[y]
+    for pos, vel in zip(pad_pos, pad_vel):
+        if ((pos[y] > 0 and pos[y] < win_height - pad_height) or
+            (pos[y] >= win_height - pad_height and vel[y] < 0) or 
+            (pos[y] <= 0 and vel[y] > 0)):
+                pos[y] += vel[y]
+                
+def collision_with_pad():
+    collision = [(ball_pos[x] <= (radius + pad_width)), 
+                 (ball_pos[x] >= win_width - (radius + pad_width))]
+
+    for pos, col in zip(pad_pos, collision): 
+        if (col and 
+            pos[y] < ball_pos[y] < pos[y] + pad_height):
+            ball_vel[x] = -ball_vel[x]
+            ball_vel[0] *= 1.1
+            ball_vel[1] *= 1.1
 
 
 # 2.1 colours 
@@ -109,15 +120,16 @@ while True:
     # 6. Calculations     
     # 6.1 Collisions
     # 6.1.1 Collision with left paddle
-    collision = [(ball_pos[x] <= (radius + pad_width)), 
-                 (ball_pos[x] >= win_width - (radius + pad_width))]
-
-    for pos, col in zip(pad_pos, collision): 
-        if (col and 
-            pos[y] < ball_pos[y] < pos[y] + pad_height):
-            ball_vel[x] = -ball_vel[x]
-            ball_vel[0] *= 1.1
-            ball_vel[1] *= 1.1
+    collision_with_pad()
+#    collision = [(ball_pos[x] <= (radius + pad_width)), 
+#                 (ball_pos[x] >= win_width - (radius + pad_width))]
+#
+#    for pos, col in zip(pad_pos, collision): 
+#        if (col and 
+#            pos[y] < ball_pos[y] < pos[y] + pad_height):
+#            ball_vel[x] = -ball_vel[x]
+#            ball_vel[0] *= 1.1
+#            ball_vel[1] *= 1.1
         
 #    if (ball_pos[x] <= (radius + pad_width) and 
 #       pad1_pos[y] < ball_pos[y] < pad1_pos[y] + pad_height):
@@ -142,7 +154,7 @@ while True:
          
     
     
-    # 6.2 Reset ball position if bal goes off screen
+    # 6.2 Reset ball position if ball goes off screen
     if (ball_pos[x] < -radius) or (ball_pos[x] > win_width + radius):
     
         ball_vel = [random.randrange(2,4), random.randrange(1,3)]    
@@ -162,8 +174,10 @@ while True:
     
     # 6.4 Update paddle position  
     
-    for pos, vel in zip(pad_pos, pad_vel):
-        update_pad_pos(pos, vel)
+    update_pad_pos()
+    
+    
+        
 #        if ((pos[y] > 0 and pos[y] < win_height - pad_height) or
 #            (pos[y] >= win_height - pad_height and vel[y] < 0) or 
 #            (pos[y] <= 0 and vel[y] > 0)):

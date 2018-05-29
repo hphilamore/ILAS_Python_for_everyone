@@ -20,6 +20,7 @@ x = 0
 y = 1
 
 flag = True
+rectangle = True
 
 # 2. Variables
 win_width = 600
@@ -57,11 +58,6 @@ velocity = [circ_vel, rect_vel]
 horizontal = [[radius, radius], [rect_width, 0]] 
 vertical = [[radius, radius], [rect_height, 0]]
 
-#print(position)
-#print(velocity)
-#print(horizontal)
-#print(vertical)
-
 # 3. Launch a game window
 window = pygame.display.set_mode((win_width, win_height))
 
@@ -94,6 +90,8 @@ while True:
     mid_click = mouse_press[1]
     right_click = mouse_press[2]
 
+
+
     # **** HOMEWORK : KEYBOARD PRESS ****
     # If you press 'R', all the "fish" turn red, 
     # if you press 'G', all the "fish" turn green until the key is released.
@@ -109,7 +107,7 @@ while True:
         pygame.quit()
         sys.exit() 
        
-        
+
     # The up, down, left and right keys move the polygon.
     if pressed[pygame.K_UP]:
         poly_vel[y] = -3
@@ -126,23 +124,33 @@ while True:
         poly_vel[x] = 0
       
         
-    # 5. Draw
-    window.fill(blue)
-    # 
+#    # 5. Draw
+#    window.fill(blue)
+#    # 
+#    
+#    # 5.1 Draw Shapes
+#    # circle
+#    pygame.draw.circle(window, 
+#                       circ_col, 
+#                       (int(circ_pos[0]), int(circ_pos[1])), 
+#                       radius)
+#    
+#    # rectangle
+#    #pygame.draw.rect(window, white, pygame.Rect(30, 300, 60, 80))
+#    if rectangle:
+#        pygame.draw.rect(window, 
+#                         rect_col, 
+#                         pygame.Rect(rect_pos[0], 
+#                                     rect_pos[1], 
+#                                     rect_width, 
+#                                     rect_height, 
+#                                     width=10))
+#   
+#    # ploygon
+#    pygame.draw.polygon(window, poly_col, poly_pos)
+#    # multiple continuous lines
+#    pygame.draw.lines(window, line_col, True, poly_pos, 3)  
     
-    # 5.1 Draw Shapes
-    # circle
-    pygame.draw.circle(window, circ_col, (int(circ_pos[0]), int(circ_pos[1])), radius)
-    
-    # rectangle
-    #pygame.draw.rect(window, white, pygame.Rect(30, 300, 60, 80))
-    pygame.draw.rect(window, rect_col, pygame.Rect(rect_pos[0], rect_pos[1], rect_width, rect_height, width=10))
-   
-    # ploygon
-    pygame.draw.polygon(window, poly_col, poly_pos)
-    
-    # multiple continuous lines
-    pygame.draw.lines(window, line_col, True, poly_pos, 3)
     
     
     
@@ -150,10 +158,10 @@ while True:
     for pos in poly_pos:   
         if not (
                 # within window limits
-                (pos[y] > 0 and pos[y] < win_height) or# and (pos[x] > 0 and pos[x] < win_width)
+                (pos[y] > 0 and pos[y] < win_height) or
                 # velocity moves shape stuck at boundary in opposite direction
                 (pos[y] >= win_height and poly_vel[y] < 0) or 
-                (pos[y] <= 0 and poly_vel[y] > 0)# and (pos[x] > 0 and pos[x] < win_width)
+                (pos[y] <= 0 and poly_vel[y] > 0)
                 ):
             break
     
@@ -164,19 +172,21 @@ while True:
     for pos in poly_pos:   
         if not (
                 # within window limits
-                (pos[x] > 0 and pos[x] < win_width) or# and (pos[x] > 0 and pos[x] < win_width)
+                (pos[x] > 0 and pos[x] < win_width) or
                 # velocity moves shape stuck at boundary in opposite direction
                 (pos[x] >= win_width and poly_vel[x] < 0) or 
-                (pos[x] <= 0 and poly_vel[x] > 0)# and (pos[x] > 0 and pos[x] < win_width)
+                (pos[x] <= 0 and poly_vel[x] > 0)
                 ):
             print('break!')
             break
 
     else:
         for pos in poly_pos: 
-            #pos[x] += poly_vel[x]
             pos[x] += poly_vel[x]
             
+    
+    
+    
     
     # update the circle and rectangle position
     for vel, pos, vert, horiz in zip(velocity, position, vertical, horizontal):
@@ -187,38 +197,86 @@ while True:
         # **** HOMEWORK : MOUSE POSITION : UNCOMMENT EITHER 1, 2, 3 or 4 ****
         # distance mouse to fish
         distx = mouse_pos[x] - pos[x]
-        print('distx', distx)
         disty = mouse_pos[y] - pos[y] 
-        print('disty', disty)
         dist = math.sqrt(distx**2 + disty**2)
         norm = Vector2(distx, disty).normalize()
         
 
-        # 1. The fish move towards the mouse curser; their velocity is proportional to their distance from the mouse.
+
+        # 1. The square and rectangle move towards the mouse curser; 
+        # Their velocity is proportional to their distance from the mouse.
 #            vel[x] += norm[x]*0.2
 #            vel[y] += norm[y]*0.2
         
         
-        # 2. The fish are scared of the mouse curser and all move away from it.            
-        if math.fabs(dist) < 100:
-            flag = True
-            vel[x] = - norm[x] * (-0.08 * distx + 10)
-            vel[y] = - norm[y] * (-0.08 * disty + 10)
-        else:
-            if flag:
-                vel[x] = random.randrange(2,4)
-                if random.randrange(0,2) == 0:
-                    vel[x] *= -1
-                flag = False
+        # 2. The circle and rectangle are scared of the mouse curser.
+        # They move away from it.            
+#        if math.fabs(dist) < 100:
+#            flag = True
+#            vel[x] = - norm[x] * (-0.08 * distx + 10)
+#            vel[y] = - norm[y] * (-0.08 * disty + 10)
+#        else:
+#            if flag:
+#                vel[x] = random.randrange(2,4)
+#                if random.randrange(0,2) == 0:
+#                    vel[x] *= -1
+#                flag = False
 #                else:   
 #                    pass
 
-                    
-            # Collision with boundary, reverse direction
-            if pos[x] > (win_width - horiz[0]) or pos[x] < horiz[1]:
-                vel[x] *= -1
-            if pos[y] > (win_height - vert[0]) or pos[y] < vert[1]:
-                vel[y] *= -1
+
+        # Leave uncommented : Collision with boundary, reverse direction
+        if pos[x] > (win_width - horiz[0]) or pos[x] < horiz[1]:
+            vel[x] *= -1
+        if pos[y] > (win_height - vert[0]) or pos[y] < vert[1]:
+            vel[y] *= -1
+                
+ 
+               
+    # **** HOMEWORK : MOUSE CLICK ****
+    # 3. If you right click on the rectangle it disappears
+    if (right_click and 
+        (rect_pos[x] < mouse_pos[x] < rect_pos[x] + rect_width) and 
+        (rect_pos[y] < mouse_pos[y] < rect_pos[y] + rect_height)):
+        rectangle = False        
+        
+        
+    # If you left click a location, the circle swims to that location
+    if left_click:
+        pass
+    
+    # 5. Draw
+    window.fill(blue)
+    # 
+    
+    # 5.1 Draw Shapes
+    # circle
+    pygame.draw.circle(window, 
+                       circ_col, 
+                       (int(circ_pos[0]), int(circ_pos[1])), 
+                       radius)
+    
+    # rectangle
+    #pygame.draw.rect(window, white, pygame.Rect(30, 300, 60, 80))
+    if rectangle:
+        pygame.draw.rect(window, 
+                         rect_col, 
+                         pygame.Rect(rect_pos[0], 
+                                     rect_pos[1], 
+                                     rect_width, 
+                                     rect_height, 
+                                     width=10))
+   
+    # ploygon
+    pygame.draw.polygon(window, poly_col, poly_pos)
+    # multiple continuous lines
+    pygame.draw.lines(window, line_col, True, poly_pos, 3)  
+        
+        
+        
+        # Pressing the left button makes the polygon green
+        # Pressing the ritgh button makes the polygon purple.
+        
                 
                      
     # 6. Update display
