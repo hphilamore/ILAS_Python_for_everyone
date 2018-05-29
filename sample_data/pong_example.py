@@ -154,9 +154,13 @@ while True:
     # 6.4 Update paddle position  
     
     for pos, vel in zip(pad_pos, pad_vel):
-        if ((pos[y] > 0 and pos[y] < win_height - pad_height) or
-            (pos[y] >= win_height - pad_height and vel[y] < 0) or 
-            (pos[y] <= 0 and vel[y] > 0)):
+        if (
+                # within window limits
+                (pos[y] > 0 and pos[y] < win_height - pad_height) or
+                # velocity moves shape stuck at boundary in opposite direction
+                (pos[y] >= win_height - pad_height and vel[y] < 0) or 
+                (pos[y] <= 0 and vel[y] > 0)
+            ):
                 pos[y] += vel[y]
             
             
