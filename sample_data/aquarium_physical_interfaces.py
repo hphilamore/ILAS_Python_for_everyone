@@ -123,35 +123,6 @@ while True:
     else:
         poly_vel[x] = 0
       
-        
-#    # 5. Draw
-#    window.fill(blue)
-#    # 
-#    
-#    # 5.1 Draw Shapes
-#    # circle
-#    pygame.draw.circle(window, 
-#                       circ_col, 
-#                       (int(circ_pos[0]), int(circ_pos[1])), 
-#                       radius)
-#    
-#    # rectangle
-#    #pygame.draw.rect(window, white, pygame.Rect(30, 300, 60, 80))
-#    if rectangle:
-#        pygame.draw.rect(window, 
-#                         rect_col, 
-#                         pygame.Rect(rect_pos[0], 
-#                                     rect_pos[1], 
-#                                     rect_width, 
-#                                     rect_height, 
-#                                     width=10))
-#   
-#    # ploygon
-#    pygame.draw.polygon(window, poly_col, poly_pos)
-#    # multiple continuous lines
-#    pygame.draw.lines(window, line_col, True, poly_pos, 3)  
-    
-    
     
     
     # update the polygon position 
@@ -183,14 +154,23 @@ while True:
     else:
         for pos in poly_pos: 
             pos[x] += poly_vel[x]
-            
+ 
     
     
-    
-    
+    # If you left click a location, the circle swims to that location
+    if left_click:
+        left_clicked = True
+        target_pos = mouse_pos
+        velocity[0] = [3 * Vector2((target_pos[x] - circ_pos[x]), 
+                                (target_pos[y] - circ_pos[y])).normalize()[0],
+                       3 * Vector2((target_pos[x] - circ_pos[x]), 
+                                (target_pos[y] - circ_pos[y])).normalize()[1]]
+        
+        
+                    
     # update the circle and rectangle position
     for vel, pos, vert, horiz in zip(velocity, position, vertical, horizontal):
-                  
+        print(circ_pos, rect_pos)          
         pos[x] += vel[x]  
         pos[y] += vel[y]
         
@@ -240,10 +220,13 @@ while True:
         (rect_pos[y] < mouse_pos[y] < rect_pos[y] + rect_height)):
         rectangle = False        
         
+    
+    
         
-    # If you left click a location, the circle swims to that location
-    if left_click:
-        pass
+    
+    
+    
+    
     
     # 5. Draw
     window.fill(blue)
@@ -271,12 +254,6 @@ while True:
     pygame.draw.polygon(window, poly_col, poly_pos)
     # multiple continuous lines
     pygame.draw.lines(window, line_col, True, poly_pos, 3)  
-        
-        
-        
-        # Pressing the left button makes the polygon green
-        # Pressing the ritgh button makes the polygon purple.
-        
                 
                      
     # 6. Update display
