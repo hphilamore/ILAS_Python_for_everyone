@@ -42,11 +42,11 @@ root = tk.Tk()
 root.title('Button Example')
 
 embed = tk.Frame(root, width = 500, height = 500) #creates embed frame for pygame window
-embed.grid(columnspan = (600), rowspan = 500) # Adds grid
-embed.pack(side = LEFT) #packs window to the left
+#embed.grid(columnspan = (600), rowspan = 500) # Adds grid
+embed.pack(padx = 150 , pady = 20) #packs window to the left
 
-buttonwin = tk.Frame(root, width = 75, height = 500)
-buttonwin.pack(side = LEFT)
+buttonwin = tk.Frame(root, width = 150, height = 500)
+buttonwin.pack(padx = 150 , pady = 20)
 
 os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
 
