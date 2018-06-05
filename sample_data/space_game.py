@@ -39,12 +39,15 @@ if random.randrange(0,2) == 0:
     
 # 2.2 List to store shots 
 shots = []
- 
+
+
+win_size = [800, 600]
 window = pygame.display.set_mode((800, 600))
 
 
 background = pygame.image.load("../img/space.jpg").convert()
 b_size = pygame.Rect(background.get_rect()).size
+print('win_size=', win_size)
 
 
 saucer = pygame.image.load("../img/saucer.png")
@@ -56,6 +59,7 @@ f_size = pygame.Rect(fire.get_rect()).size
 monster = pygame.image.load("../img/monster.gif")
 m_size = pygame.Rect(monster.get_rect()).size
 monster.set_colorkey(white)
+print('m_size=', m_size)
 
 
 # 3. Launch a game window
@@ -106,16 +110,12 @@ while True:
 
         
     # 4.2 Calculations  
-    # 4.2.1 Reverse direction of travel if edge is reached
-#    if monster_pos[x] > (b_size[x] - m_size[x]) or monster_pos[x] < 0:
-#        monster_vel[x] *= -1
-#    if monster_pos[y] > (b_size[y]-m_size[y]) or monster_pos[y] < 0:
-#        monster_vel[y] *= -1
-        
-    if monster_pos[x] > (b_size[x] - m_size[x]) or monster_pos[x] < m_size[x]:
+    # 4.2.1 Reverse direction of travel if edge is reached        
+    if monster_pos[x] > (800-120) or monster_pos[x] < -120:
         monster_vel[x] *= -1
-    if monster_pos[y] > (b_size[y]-m_size[y]) or monster_pos[y] < m_size[y]:
+    if monster_pos[y] > (600-90) or monster_pos[y] < -90:
         monster_vel[y] *= -1
+
         
     # 4.2.2 Update position
     monster_pos[x] += monster_vel[x]
