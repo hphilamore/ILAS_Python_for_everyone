@@ -8,6 +8,7 @@ Created on Tue May  8 09:02:36 2018
 # 0. Import libraries
 import pygame 
 import sys
+from test_funcs import *
 
 # 1. Initailise the pygame library
 pygame.init()
