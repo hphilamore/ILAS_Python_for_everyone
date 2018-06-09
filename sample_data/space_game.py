@@ -47,7 +47,7 @@ window = pygame.display.set_mode((800, 600))
 
 background = pygame.image.load("../img/space.jpg").convert()
 b_size = pygame.Rect(background.get_rect()).size
-print('win_size=', win_size)
+print('b_size=', b_size)
 
 
 saucer = pygame.image.load("../img/saucer.png")
