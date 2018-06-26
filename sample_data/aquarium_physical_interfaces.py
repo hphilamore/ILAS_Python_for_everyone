@@ -1,9 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue May  8 09:02:36 2018
-
-@author: hemma
+- A circle and rectangle move autonomously within the game window.
+- The polygon can be moved using the arrow keys.
+- If you press 'R', all the "fish" turn red, 
+- If you press 'G', all the "fish" turn green until the key is released.
+- Three cases can be run, depending on which section of code is uncommented:
+    
+    1. The square and rectangle move towards the mouse curser; 
+    Their velocity is proportional to their distance from the mouse.
+    
+    2. The circle and rectangle are scared of the mouse curser.
+    They move away from it. 
+    
+     3. If you right click on the rectangle it disappears
+    
 """
 
 import pygame 
@@ -174,7 +185,6 @@ while True:
         pos[x] += vel[x]  
         pos[y] += vel[y]
         
-        # **** HOMEWORK : MOUSE POSITION : UNCOMMENT EITHER 1, 2, 3 or 4 ****
         # distance mouse to fish
         distx = mouse_pos[x] - pos[x]
         disty = mouse_pos[y] - pos[y] 
@@ -182,15 +192,24 @@ while True:
         norm = Vector2(distx, disty).normalize()
         
 
+# **** HOMEWORK : UNCOMMENT EITHER 1, 2, or 3 ****    
 
-        # 1. The square and rectangle move towards the mouse curser; 
-        # Their velocity is proportional to their distance from the mouse.
+ # **** HOMEWORK : MOUSE POSITION ****    
+# 1. The square and rectangle move towards the mouse curser; 
+# Their velocity is proportional to their distance from the mouse.
+##############################################################################   
 #            vel[x] += norm[x]*0.2
 #            vel[y] += norm[y]*0.2
-        
-        
-        # 2. The circle and rectangle are scared of the mouse curser.
-        # They move away from it.            
+##############################################################################        
+# end of 1.
+
+
+
+ # **** HOMEWORK : MOUSE POSITION ****    
+# 2. The circle and rectangle are scared of the mouse curser.
+# They move away from it.         
+##############################################################################        
+           
 #        if math.fabs(dist) < 100:
 #            flag = True
 #            vel[x] = - norm[x] * (-0.08 * distx + 10)
@@ -203,8 +222,10 @@ while True:
 #                flag = False
 #                else:   
 #                    pass
-
-
+##############################################################################
+# end of 2. 
+        
+        
         # Leave uncommented : Collision with boundary, reverse direction
         if pos[x] > (win_width - horiz[0]) or pos[x] < horiz[1]:
             vel[x] *= -1
@@ -212,15 +233,17 @@ while True:
             vel[y] *= -1
                 
  
-               
-    # **** HOMEWORK : MOUSE CLICK ****
-    # 3. If you right click on the rectangle it disappears
+    
+    
+ # **** HOMEWORK : MOUSE CLICK ****
+ # 3. If you right click on the rectangle it disappears 
+##############################################################################               
     if (right_click and 
         (rect_pos[x] < mouse_pos[x] < rect_pos[x] + rect_width) and 
         (rect_pos[y] < mouse_pos[y] < rect_pos[y] + rect_height)):
         rectangle = False        
-        
-    
+##############################################################################        
+# end of 3.  
     
         
     
