@@ -1,0 +1,4 @@
+[
+  "calculator_example.py::test_calculator_add_returns_correct_result",
+  "calculator_example.py::test_calculator_returns_error_message_if_both_args_not_numbers"
+]
