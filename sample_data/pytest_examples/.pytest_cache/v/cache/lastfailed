@@ -1,1 +1,4 @@
-{}
+{
+  "hydrostatic_pressure_example.py": true,
+  "test_fib_example2.py::test_fibonacci": true
+}

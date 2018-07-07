@@ -18,12 +18,12 @@ def hp(h, *, rho = 1000, g = 9.81):
     return rho * g * h
 
 
-#result = hp(-10)
+result = hp(-10)
 
 #assert result == -10 * 1000 * 9.81
 
 
-# Check that h < zero raises a ValueError
+# Check that h, rho, g < zero raises a ValueError
 def test_hydrostatic_pressure_returns_error_if_h_less_then_0():
     with pytest.raises(ValueError):
         hp(-10)
